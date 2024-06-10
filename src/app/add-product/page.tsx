@@ -1,19 +1,54 @@
+import { prisma } from "@/lib/db/prisma";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Add product",
 };
 
+const getAvailableSizes = () => {
+  const allSizes = ['X-Small', "Small", "Medium", "Large", "X-Large", "XX-Large", "XXX-Large"];
+  return allSizes.filter(() => Math.random() > 0.25);
+};
+
+const addProduct = async (formData: FormData) => {
+  "use server";
+
+  const name = formData.get("name")?.toString();
+  const description = formData.get("description")?.toString();
+  const imageUrl = formData.get("imageUrl")?.toString();
+  const price = Number(formData.get("price") || 0);
+  const rating = Number(formData.get("rating") || 0);
+  const size = getAvailableSizes();
+
+  if (!name || !description || !imageUrl || !price || !rating || size.length === 0) {
+    throw Error("Missing required fields. All fields should be fill up.")
+  }
+
+  await prisma.product.create({
+    data: {
+      name,
+      description,
+      imageUrl,
+      price,
+      rating,
+      size,
+    },
+  });
+
+  redirect('/');
+};
+
 const inputStyles = "input-bordered input  mb-3 w-full";
 
-const AddProduct = () => {
+const AddProductPage = () => {
   return (
     <>
       <section className="flex gap-4 flex-col items-center justify-center">
         <h1 className="text-2xl mb-3 font-bold font-custom text-center">
           Add product
         </h1>
-        <form className="w-96">
+        <form className="w-96" action={addProduct}>
           <input
             required
             name="name"
@@ -25,7 +60,7 @@ const AddProduct = () => {
             required
             name="description"
             placeholder="Description"
-            className="input-bordered input input-md mb-3 w-full h-20"
+            className="input-bordered input mb-3 w-full h-20"
           />
           <input
             required
@@ -50,15 +85,6 @@ const AddProduct = () => {
             min={0}
             max={5}
           />
-          <select className="select select-bordered w-full mb-6" required>
-            <option disabled selected>
-              Size
-            </option>
-            <option>Small</option>
-            <option>Medium</option>
-            <option>Large</option>
-            <option>X-Large</option>
-          </select>
           <div className="w-full flex justify-center">
             <button type="submit" className="btn btn-primary">
               Add Product
@@ -70,4 +96,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default AddProductPage;
