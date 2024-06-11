@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import { custom } from "zod";
 
 const config: Config = {
   content: [
@@ -18,17 +17,17 @@ const config: Config = {
     themes: [
       {
         lightTheme: {
-          primary: "#a21caf",
+          primary: "#4d4b48",
           secondary: "#fb7185",
           accent: "#0076f4",
           neutral: "#111309",
-          "base-100": "#fff",
+          "base-100": "#FAFDFD",
           info: "#00b6ff",
           success: "#34d399",
           warning: "#f59e0b",
           error: "#dc2626",
           body: {
-            "background-color": "#e3e6e6",
+            "background-color": "#F4F7F7",
           },
         },
       },

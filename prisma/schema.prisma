@@ -8,15 +8,18 @@ datasource db {
 }
 
 model Product {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  description String
-  imageUrl    String
-  name        String
-  price       Int
-  rating      Int
-  size        String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  description    String
+  imageUrl       String
+  name           String
+  colors         String[]
+  category       String
+  targetAudience String
+  price          Int
+  rating         Int
+  size           String[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
   @@map("products")
 }

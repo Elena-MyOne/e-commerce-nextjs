@@ -1,3 +1,4 @@
+import FormSubmitButton from "@/components/button/FormSubmitButton";
 import { prisma } from "@/lib/db/prisma";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -7,8 +8,31 @@ export const metadata: Metadata = {
 };
 
 const getAvailableSizes = () => {
-  const allSizes = ['X-Small', "Small", "Medium", "Large", "X-Large", "XX-Large", "XXX-Large"];
+  const allSizes = [
+    "X-Small",
+    "Small",
+    "Medium",
+    "Large",
+    "X-Large",
+    "XX-Large",
+    "XXX-Large",
+  ];
   return allSizes.filter(() => Math.random() > 0.25);
+};
+
+const getAvailableColors = () => {
+  const allColors = [
+    "Green",
+    "Red",
+    "Yellow",
+    "Orange",
+    "Blue",
+    "Purple",
+    "Pink",
+    "White",
+    "Black",
+  ];
+  return allColors.filter(() => Math.random() > 0.25);
 };
 
 const addProduct = async (formData: FormData) => {
@@ -20,9 +44,22 @@ const addProduct = async (formData: FormData) => {
   const price = Number(formData.get("price") || 0);
   const rating = Number(formData.get("rating") || 0);
   const size = getAvailableSizes();
+  const colors = getAvailableColors();
+  const category = formData.get("category")?.toString();
+  const targetAudience = formData.get("targetAudience")?.toString();
 
-  if (!name || !description || !imageUrl || !price || !rating || size.length === 0) {
-    throw Error("Missing required fields. All fields should be fill up.")
+  if (
+    !name ||
+    !description ||
+    !imageUrl ||
+    !price ||
+    !rating ||
+    size.length === 0 ||
+    colors.length === 0 ||
+    !category ||
+    !targetAudience
+  ) {
+    throw Error("Missing required fields. All fields should be fill up.");
   }
 
   await prisma.product.create({
@@ -33,22 +70,25 @@ const addProduct = async (formData: FormData) => {
       price,
       rating,
       size,
+      colors,
+      category,
+      targetAudience,
     },
   });
 
-  redirect('/');
+  redirect("/");
 };
 
 const inputStyles = "input-bordered input  mb-3 w-full";
 
 const AddProductPage = () => {
   return (
-    <>
-      <section className="flex gap-4 flex-col items-center justify-center">
-        <h1 className="text-2xl mb-3 font-bold font-custom text-center">
+    <section className="flex h-full flex-col items-center justify-center gap-4">
+      <div className="rounded-md border-[1px] border-gray-400 bg-base-100 p-4">
+        <h1 className="mb-3 text-center font-custom text-2xl font-bold">
           Add product
         </h1>
-        <form className="w-96" action={addProduct}>
+        <form className="sm:w-96" action={addProduct}>
           <input
             required
             name="name"
@@ -60,7 +100,7 @@ const AddProductPage = () => {
             required
             name="description"
             placeholder="Description"
-            className="input-bordered input mb-3 w-full h-20"
+            className="input input-bordered mb-3 h-20 w-full"
           />
           <input
             required
@@ -69,6 +109,36 @@ const AddProductPage = () => {
             placeholder="Image URL"
             className={inputStyles}
           />
+          <select
+            className="select select-bordered mb-3 w-full"
+            defaultValue={"DEFAULT"}
+            name="category"
+            required
+          >
+            <option disabled value="DEFAULT">
+              Category
+            </option>
+            <option>T-short</option>
+            <option>Short</option>
+            <option>Jeans</option>
+            <option>Shirts</option>
+            <option>Hoodie</option>
+          </select>
+          <select
+            className="select select-bordered mb-3 w-full"
+            defaultValue={"DEFAULT"}
+            name="targetAudience"
+            required
+          >
+            <option disabled value="DEFAULT">
+              Target audience
+            </option>
+            <option>Men</option>
+            <option>Women</option>
+            <option>Girls</option>
+            <option>Boys</option>
+            <option>Unisex</option>
+          </select>
           <input
             required
             name="price"
@@ -85,14 +155,12 @@ const AddProductPage = () => {
             min={0}
             max={5}
           />
-          <div className="w-full flex justify-center">
-            <button type="submit" className="btn btn-primary">
-              Add Product
-            </button>
+          <div className="flex w-full justify-center">
+            <FormSubmitButton>Add Product</FormSubmitButton>
           </div>
         </form>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 
