@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {images: {
-  remotePatterns: [{ hostname: "unsplash.com" }],
-},};
+const nextConfig = {
+  images: {
+    domains: ["raw.githubusercontent.com", "unsplash.com"],
+  },
+};
 
 export default nextConfig;

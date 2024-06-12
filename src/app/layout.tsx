@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <header>Header</header>
-        <main className="max-w-7xl p-4 m-auto min-w-[310px]">{children}</main>
+        <main className="container m-auto p-4">{children}</main>
         <footer>Footer</footer>
       </body>
     </html>

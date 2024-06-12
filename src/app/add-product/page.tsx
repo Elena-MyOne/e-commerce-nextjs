@@ -1,4 +1,4 @@
-import FormSubmitButton from "@/components/button/FormSubmitButton";
+import FormSubmitButton from "@/components/UI/buttons/FormSubmitButton";
 import { prisma } from "@/lib/db/prisma";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
@@ -47,6 +47,7 @@ const addProduct = async (formData: FormData) => {
   const colors = getAvailableColors();
   const category = formData.get("category")?.toString();
   const targetAudience = formData.get("targetAudience")?.toString();
+  const sale = Number(formData.get("sale") || 0);
 
   if (
     !name ||
@@ -57,7 +58,8 @@ const addProduct = async (formData: FormData) => {
     size.length === 0 ||
     colors.length === 0 ||
     !category ||
-    !targetAudience
+    !targetAudience ||
+    !sale
   ) {
     throw Error("Missing required fields. All fields should be fill up.");
   }
@@ -73,10 +75,11 @@ const addProduct = async (formData: FormData) => {
       colors,
       category,
       targetAudience,
+      sale,
     },
   });
 
-  redirect("/");
+  redirect("/category");
 };
 
 const inputStyles = "input-bordered input  mb-3 w-full";
@@ -154,6 +157,15 @@ const AddProductPage = () => {
             className={inputStyles}
             min={0}
             max={5}
+          />
+          <input
+            required
+            name="sale"
+            type="number"
+            placeholder="Sale"
+            className={inputStyles}
+            min={0}
+            max={80}
           />
           <div className="flex w-full justify-center">
             <FormSubmitButton>Add Product</FormSubmitButton>
