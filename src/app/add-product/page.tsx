@@ -58,8 +58,7 @@ const addProduct = async (formData: FormData) => {
     size.length === 0 ||
     colors.length === 0 ||
     !category ||
-    !targetAudience ||
-    !sale
+    !targetAudience
   ) {
     throw Error("Missing required fields. All fields should be fill up.");
   }
@@ -159,7 +158,6 @@ const AddProductPage = () => {
             max={5}
           />
           <input
-            required
             name="sale"
             type="number"
             placeholder="Sale"
