@@ -1,4 +1,3 @@
-import StarsRating from "@/components/UI/startsRating/StartsRating";
 import ProductCard from "@/components/productCard/ProductCard";
 import { prisma } from "@/lib/db/prisma";
 

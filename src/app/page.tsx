@@ -1,7 +1,31 @@
-export default function Home() {
+import ProductsRow from "@/components/ProductsRow/ProductsRow";
+import ViewAllButton from "@/components/UI/buttons/ViewAllButton";
+import { prisma } from "@/lib/db/prisma";
+
+export default async function Home() {
+  const [newProducts, salesProducts] = await prisma.$transaction([
+    prisma.product.findMany({
+      orderBy: { id: "desc" },
+    }),
+
+    prisma.product.findMany({
+      orderBy: { sale: "desc" },
+    }),
+  ]);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-4">
-      <h1>Home page</h1>
-    </main>
+    <>
+      <h1>Home Page</h1>
+      <div className="divide-y">
+        <div>
+          <ProductsRow title="New Arrivals" products={newProducts} />
+          <ViewAllButton />
+        </div>
+        <div>
+          <ProductsRow title="Top Discounts" products={salesProducts} />
+          <ViewAllButton />
+        </div>
+      </div>
+    </>
   );
 }
