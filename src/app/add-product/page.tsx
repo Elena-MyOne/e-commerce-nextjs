@@ -120,8 +120,8 @@ const AddProductPage = () => {
             <option disabled value="DEFAULT">
               Category
             </option>
-            <option>T-short</option>
-            <option>Short</option>
+            <option>T-shirt</option>
+            <option>Shorts</option>
             <option>Jeans</option>
             <option>Shirts</option>
             <option>Hoodie</option>
