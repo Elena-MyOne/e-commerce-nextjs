@@ -12,7 +12,7 @@ const config: Config = {
         custom: ["integralcf", "sans-serif"],
       },
       screens: {
-        xsm: { max: "440px" },
+        xsm: { max: "500px" },
       },
     },
   },
