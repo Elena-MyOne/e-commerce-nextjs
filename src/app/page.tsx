@@ -1,3 +1,4 @@
+import HeroComponent from "@/components/HeroComponent/HeroComponent";
 import ProductsRow from "@/components/ProductsRow/ProductsRow";
 import ViewAllButton from "@/components/UI/buttons/ViewAllButton";
 import { prisma } from "@/lib/db/prisma";
@@ -15,7 +16,7 @@ export default async function Home() {
 
   return (
     <>
-      <h1>Home Page</h1>
+      <HeroComponent />
       <div className="divide-y">
         <div>
           <ProductsRow title="New Arrivals" products={newProducts} />

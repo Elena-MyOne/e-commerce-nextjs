@@ -11,15 +11,18 @@ const config: Config = {
       fontFamily: {
         custom: ["integralcf", "sans-serif"],
       },
+      screens: {
+        xsm: { max: "440px" },
+      },
     },
   },
   daisyui: {
     themes: [
       {
         lightTheme: {
-          primary: "#4d4b48",
+          primary: "#3B3833",
           secondary: "#fb7185",
-          accent: "#0076f4",
+          accent: "#EDE9E6",
           neutral: "#111309",
           "base-100": "#FAFDFD",
           info: "#00b6ff",
