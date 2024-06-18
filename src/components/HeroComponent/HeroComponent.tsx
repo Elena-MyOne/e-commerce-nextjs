@@ -1,7 +1,7 @@
 import PrimaryButton from "../UI/buttons/PrimaryButton";
 import image from "../../assets/images/pages/home/hero/hero.png";
-import Image from "next/image";
 import Statistics from "../UI/Statistics/Statistics";
+import Brands from "../UI/Brands/Brands";
 
 export default function HeroComponent() {
   return (
@@ -26,6 +26,7 @@ export default function HeroComponent() {
           <Statistics />
         </div>
       </div>
+      <Brands />
     </>
   );
 }
