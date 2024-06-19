@@ -17,7 +17,7 @@ export default async function Home() {
   return (
     <>
       <HeroComponent />
-      <div className="divide-y">
+      <div className="divide-y py-8 lg:py-4">
         <div>
           <ProductsRow title="New Arrivals" products={newProducts} />
           <ViewAllButton />

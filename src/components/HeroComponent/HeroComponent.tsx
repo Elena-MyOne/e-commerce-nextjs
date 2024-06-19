@@ -22,7 +22,7 @@ export default function HeroComponent() {
             designed to bring out your individuality and cater to your sense of
             style.
           </p>
-          <PrimaryButton text="Shop now" />
+          <PrimaryButton text="Shop now" href="/category" />
           <Statistics />
         </div>
       </div>
