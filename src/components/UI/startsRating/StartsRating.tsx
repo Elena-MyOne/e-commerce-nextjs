@@ -2,13 +2,14 @@ import { useId } from "react";
 
 interface StarsRatingProps {
   rating: number;
+  className?: string;
 }
 
-export default function StarsRating({ rating }: StarsRatingProps) {
+export default function StarsRating({ rating, className }: StarsRatingProps) {
   const uniqueName = useId();
 
   return (
-    <div className="rating rating-xs">
+    <div className={`rating ${className ? className : "rating-xs"}`}>
       {[1, 2, 3, 4, 5].map((star) => (
         <input
           key={star}

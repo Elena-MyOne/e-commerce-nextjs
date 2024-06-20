@@ -1,38 +1,12 @@
 import FormSubmitButton from "@/components/UI/buttons/FormSubmitButton";
 import { prisma } from "@/lib/db/prisma";
+import { getAvailableColors } from "@/lib/functions/getAvailableColors";
+import { getAvailableSizes } from "@/lib/functions/getAvailableSizes";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Add product",
-};
-
-const getAvailableSizes = () => {
-  const allSizes = [
-    "X-Small",
-    "Small",
-    "Medium",
-    "Large",
-    "X-Large",
-    "XX-Large",
-    "XXX-Large",
-  ];
-  return allSizes.filter(() => Math.random() > 0.25);
-};
-
-const getAvailableColors = () => {
-  const allColors = [
-    "Green",
-    "Red",
-    "Yellow",
-    "Orange",
-    "Blue",
-    "Purple",
-    "Pink",
-    "White",
-    "Black",
-  ];
-  return allColors.filter(() => Math.random() > 0.25);
 };
 
 const addProduct = async (formData: FormData) => {
@@ -83,7 +57,7 @@ const addProduct = async (formData: FormData) => {
 
 const inputStyles = "input-bordered input  mb-3 w-full";
 
-const AddProductPage = () => {
+export default function AddProductPage() {
   return (
     <section className="flex h-full flex-col items-center justify-center gap-4">
       <div className="rounded-md border-[1px] border-gray-400 bg-base-100 p-4">
@@ -172,6 +146,4 @@ const AddProductPage = () => {
       </div>
     </section>
   );
-};
-
-export default AddProductPage;
+}
