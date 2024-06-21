@@ -1,14 +1,16 @@
 "use client";
 
-import { useState } from "react";
-
 interface SizeBadgesProps {
   sizes: string[];
+  selectedSize: string | null;
+  setSelectedSize: (size: string) => void;
 }
 
-export default function SizeBadges({ sizes }: SizeBadgesProps) {
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
-
+export default function SizeBadges({
+  sizes,
+  selectedSize,
+  setSelectedSize,
+}: SizeBadgesProps) {
   return (
     <div className="py-3">
       <p>Choose Size</p>

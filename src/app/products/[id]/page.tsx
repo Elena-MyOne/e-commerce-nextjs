@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db/prisma";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import { incrementProductQuantity } from "./actions";
 
 interface ProductPageProps {
   params: {
@@ -36,7 +37,10 @@ export default async function ProductPage({
 
   return (
     <div className="">
-      <ProductDetailsCard product={product} />
+      <ProductDetailsCard
+        product={product}
+        incrementProductQuantity={incrementProductQuantity}
+      />
     </div>
   );
 }

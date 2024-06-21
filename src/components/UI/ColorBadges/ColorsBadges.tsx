@@ -1,15 +1,18 @@
 "use client";
 
-import { useState } from "react";
 import { IoCheckmarkSharp } from "react-icons/io5";
 
 interface ColorBadgesProps {
   colors: string[];
+  selectedColor: string | null;
+  setSelectedColor: (color: string) => void;
 }
 
-export default function ColorBadges({ colors }: ColorBadgesProps) {
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
-
+export default function ColorBadges({
+  colors,
+  selectedColor,
+  setSelectedColor,
+}: ColorBadgesProps) {
   const handleColorClick = (color: string) => {
     setSelectedColor(color);
   };
