@@ -43,7 +43,7 @@ model CartItem {
   size      String
   color     String
   cartId    String  @db.ObjectId
-  cart      Cart    @relation(fields: [cartId], references: [id])
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
 
   @@map("catitems")
 }
