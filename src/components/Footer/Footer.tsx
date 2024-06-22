@@ -66,7 +66,7 @@ export default function Footer() {
       </footer>
       <footer className="m-auto border-t border-base-200 bg-base-100 p-5 text-center text-sm md:container sm:p-10">
         <p className="pb-2 text-info">
-          Shop.co &copy; 2000 - {new Date().getFullYear()}, All Rights Reserved
+          Shop.co &copy; 2000 - {new Date().getFullYear()}. All Rights Reserved
         </p>
         <p className="text-info">
           Developed by{" "}
