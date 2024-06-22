@@ -1,3 +1,6 @@
+"use client";
+
+import { useTransition } from "react";
 import ProductQuantityBadge from "@/components/UI/ProductQuantityBadge/ProductQuantityBadge";
 import { CartItemWithProduct } from "@/lib/db/cart";
 import { countSalePriceWithQuantity } from "@/lib/functions/countSalePriceWithQuantity";
@@ -20,6 +23,8 @@ export default function CartEntry({
   cartItem: { product, quantity, size, color },
   setProductQuantity,
 }: CartEntryProps) {
+  const [isPending, startTransition] = useTransition();
+
   return (
     <div className="flex gap-2 py-2 sm:gap-4 sm:py-4">
       <Image
@@ -37,7 +42,14 @@ export default function CartEntry({
           >
             {product.name}
           </Link>
-          <button className="cursor-pointer text-lg duration-300 hover:text-secondary">
+          <button
+            className="cursor-pointer text-lg duration-300 hover:text-secondary"
+            onClick={() => {
+              startTransition(async () => {
+                await setProductQuantity(product.id, 0, color, size);
+              });
+            }}
+          >
             <RiDeleteBin6Line />
           </button>
         </div>
