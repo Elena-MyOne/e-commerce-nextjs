@@ -1,6 +1,7 @@
 import { getCart } from "@/lib/db/cart";
 import CartEntry from "./CartEntry/CartEntry";
 import { setProductQuantity } from "../../components/UI/ProductQuantityBadge/actions";
+import OrderSummary from "./OrderSummary/OrderSummary";
 
 export const metadata = {
   title: "Your Cart",
@@ -21,8 +22,17 @@ export default async function CartPage() {
               setProductQuantity={setProductQuantity}
             />
           ))}
+          {!cart?.items.length && (
+            <p className="my-10 text-center">Your cart is empty</p>
+          )}
         </div>
-        <div className="w-[310px] flex-initial divide-x rounded-xl border border-gray-200 p-4"></div>
+        {!!cart?.items.length && (
+          <OrderSummary
+            subtotal={cart.subtotal}
+            total={cart.total}
+            discount={cart.discount}
+          />
+        )}
       </div>
     </section>
   );

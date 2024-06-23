@@ -35,23 +35,33 @@ export default function ShoppingCartButton({ cart }: ShoppingCartButtonProps) {
       </label>
       <div
         tabIndex={0}
-        className="card dropdown-content card-compact z-30 mt-3 w-52 bg-base-100 shadow-sm sm:mt-5"
+        className="card dropdown-content card-compact z-30 mt-3 w-52 bg-base-100 shadow sm:mt-5"
       >
-        <div className="card-body p-10 sm:p-5">
-          <span className="text-center text-lg font-extrabold">
-            {cart?.size || 0} <span className="font-custom">Items</span>
-          </span>
-          <span className="text-center text-info">
-            Subtotal: {formatPrice(cart?.subtotal || 0)}
-          </span>
-          <div className="card-actions m-auto">
-            <Link
-              href="/cart"
-              className="btn btn-primary rounded-full px-14 hover:btn-secondary"
-              onClick={closeDropdownMenu}
-            >
-              Go to Cart
-            </Link>
+        <div className="card-body divide-y p-10 sm:p-5">
+          <div className="flex flex-col gap-2">
+            <span className="text-center text-lg font-extrabold">
+              {cart?.size || 0} <span className="font-custom">Items</span>
+            </span>
+            <span className="text-center text-info">
+              Subtotal: {formatPrice(cart?.subtotal || 0)}
+            </span>
+            <span className="text-center text-error">
+              Discount: -{formatPrice(cart?.discount || 0)}
+            </span>
+          </div>
+          <div className="flex flex-col gap-2 pt-4">
+            <span className="text-center font-semibold">
+              Total: {formatPrice(cart?.total || 0)}
+            </span>
+            <div className="card-actions m-auto pt-4">
+              <Link
+                href="/cart"
+                className="btn btn-primary rounded-full px-14 hover:btn-secondary"
+                onClick={closeDropdownMenu}
+              >
+                Go to Cart
+              </Link>
+            </div>
           </div>
         </div>
       </div>
