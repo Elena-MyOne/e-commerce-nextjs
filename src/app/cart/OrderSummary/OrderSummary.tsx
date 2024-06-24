@@ -1,7 +1,6 @@
 import FormSubmitButton from "@/components/UI/buttons/FormSubmitButton";
 import PrimaryButton from "@/components/UI/buttons/PrimaryButton";
 import { formatPrice } from "@/lib/functions/formatPrice";
-import { FormEvent } from "react";
 
 interface OrderSummaryProps {
   subtotal: number;
