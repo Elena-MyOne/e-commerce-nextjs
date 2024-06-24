@@ -2,6 +2,9 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getCart } from "@/lib/db/cart";
 import ShoppingCartButton from "./ShoppingCartButton/ShoppingCartButton";
+import UserMenuButton from "./UserMenuButton/UserMenuButton";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 async function searchProducts(formData: FormData) {
   "use server";
@@ -13,6 +16,7 @@ async function searchProducts(formData: FormData) {
 
 export default async function Header() {
   const cart = await getCart();
+  const session = await getServerSession(authOptions);
 
   return (
     <>
@@ -25,7 +29,7 @@ export default async function Header() {
             Shop.co
           </Link>
         </div>
-        <div className="flex-none gap-2 sm:gap-5">
+        <div className="flex-none gap-2 sm:gap-6">
           {/* <nav>
             <ul className="flex gap-6">
               <li>
@@ -49,6 +53,7 @@ export default async function Header() {
             </div>
           </form>
           <ShoppingCartButton cart={cart} />
+          <UserMenuButton session={session} />
         </div>
         {/*
         <div className="">avatar icon</div> */}
