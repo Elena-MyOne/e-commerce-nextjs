@@ -5,6 +5,8 @@ import ShoppingCartButton from "./ShoppingCartButton/ShoppingCartButton";
 import UserMenuButton from "./UserMenuButton/UserMenuButton";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import SearchProductsSubmitButton from "./searchProductsSubmitButton/searchProductsSubmitButton";
+import { RiSearchLine } from "react-icons/ri";
 
 async function searchProducts(formData: FormData) {
   "use server";
@@ -43,20 +45,21 @@ export default async function Header() {
               </li>
             </ul>
           </nav> */}
-          <form action={searchProducts}>
+          <form action={searchProducts} className="relative">
             <div className="form-control">
               <input
                 name="searchQuery"
                 placeholder="Search for products..."
-                className="input input-bordered w-full min-w-[100px] rounded-full"
+                className="input input-bordered w-full min-w-[100px] rounded-full pr-10"
               />
             </div>
+            <SearchProductsSubmitButton>
+              <RiSearchLine />
+            </SearchProductsSubmitButton>
           </form>
           <ShoppingCartButton cart={cart} />
           <UserMenuButton session={session} />
         </div>
-        {/*
-        <div className="">avatar icon</div> */}
       </header>
     </>
   );
