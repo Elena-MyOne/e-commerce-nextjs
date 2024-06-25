@@ -3,7 +3,9 @@ import { prisma } from "@/lib/db/prisma";
 import { getAvailableColors } from "@/lib/functions/getAvailableColors";
 import { getAvailableSizes } from "@/lib/functions/getAvailableSizes";
 import { Metadata } from "next";
+import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export const metadata: Metadata = {
   title: "Add product",
@@ -11,6 +13,12 @@ export const metadata: Metadata = {
 
 const addProduct = async (formData: FormData) => {
   "use server";
+
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect("/api/auth/signin?callbackUrl=/add-product");
+  }
 
   const name = formData.get("name")?.toString();
   const description = formData.get("description")?.toString();
@@ -57,9 +65,15 @@ const addProduct = async (formData: FormData) => {
 
 const inputStyles = "input-bordered input  mb-3 w-full";
 
-export default function AddProductPage() {
+export default async function AddProductPage() {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect("/api/auth/signin?callbackUrl=/add-product");
+  }
+
   return (
-    <section className="flex h-full flex-col items-center justify-center gap-4">
+    <section className="flex h-full flex-col items-center justify-center gap-4 py-5 sm:py-10">
       <div className="rounded-md border-[1px] border-gray-400 bg-base-100 p-4">
         <h1 className="mb-3 text-center font-custom text-2xl font-bold">
           Add product
