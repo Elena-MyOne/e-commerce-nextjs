@@ -4,10 +4,10 @@ import { getCart } from "@/lib/db/cart";
 import ShoppingCartButton from "./ShoppingCartButton/ShoppingCartButton";
 import UserMenuButton from "./UserMenuButton/UserMenuButton";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import SearchProductsSubmitButton from "./searchProductsSubmitButton/searchProductsSubmitButton";
 import { RiSearchLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
+import authOptions from "@/app/api/auth/[...nextauth]/options";
 
 async function searchProducts(formData: FormData) {
   "use server";
