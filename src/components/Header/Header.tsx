@@ -7,6 +7,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import SearchProductsSubmitButton from "./searchProductsSubmitButton/searchProductsSubmitButton";
 import { RiSearchLine } from "react-icons/ri";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 async function searchProducts(formData: FormData) {
   "use server";
@@ -24,17 +25,18 @@ export default async function Header() {
 
   return (
     <>
-      <header className="navbar m-auto flex-col gap-2 border-b border-gray-200 p-0 py-2 md:container sm:flex-row">
-        <div className="flex flex-1 items-center gap-10">
+      <header className="navbar m-auto flex-col gap-4 border-b border-gray-200 p-0 py-2 md:container lg:flex-row">
+        <div className="flex flex-1 items-end gap-20 self-start lg:items-center lg:justify-between">
+          <button className="block px-1 text-2xl lg:hidden">
+            <RxHamburgerMenu />
+          </button>
           <Link
             href="/"
             className="font-custom text-lg duration-300 hover:text-secondary sm:text-2xl"
           >
             Shop.co
           </Link>
-        </div>
-        <div className="flex-none gap-3 px-1 sm:gap-6 sm:px-0">
-          {/* <nav>
+          <nav className="hidden lg:block">
             <ul className="flex gap-6">
               <li>
                 <Link href="/category">Shop</Link>
@@ -46,13 +48,15 @@ export default async function Header() {
                 <Link href="/category">New Arrivals</Link>
               </li>
             </ul>
-          </nav> */}
+          </nav>
+        </div>
+        <div className="flex-none gap-3 px-1 sm:gap-6 sm:px-0">
           <form action={searchProducts} className="relative">
             <div className="form-control">
               <input
                 name="searchQuery"
                 placeholder="Search for products..."
-                className="input input-bordered w-full min-w-[100px] rounded-full pr-10"
+                className="input input-bordered w-full min-w-[100px] rounded-full pl-10"
               />
             </div>
             <SearchProductsSubmitButton>
