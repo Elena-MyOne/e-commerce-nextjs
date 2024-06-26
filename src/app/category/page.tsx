@@ -1,10 +1,15 @@
 import Pagination from "@/components/Pagination/Pagination";
 import ProductCard from "@/components/productCard/ProductCard";
 import { prisma } from "@/lib/db/prisma";
+import { Metadata } from "next";
 
 interface CategoryProps {
   searchParams: { page: string; query: string };
 }
+
+export const metadata: Metadata = {
+  title: "Shop",
+};
 
 export default async function Category({
   searchParams: { page = "1", query = "" },
@@ -38,7 +43,9 @@ export default async function Category({
   return (
     <>
       <section className="my-5 w-full sm:my-10">
-        <h1 className="mb-4 font-custom text-2xl font-bold">New Arrivals</h1>
+        <h1 className="mb-4 font-custom text-2xl font-bold">
+          {query ? "Searching results" : "New Arrivals"}
+        </h1>
         <div className="flex flex-wrap gap-4">
           {products.map((product) => (
             <ProductCard product={product} key={product.id} />
