@@ -3,20 +3,33 @@ import ProductCard from "@/components/productCard/ProductCard";
 import { prisma } from "@/lib/db/prisma";
 
 interface CategoryProps {
-  searchParams: { page: string };
+  searchParams: { page: string; query: string };
 }
 
 export default async function Category({
-  searchParams: { page = "1" },
+  searchParams: { page = "1", query = "" },
 }: CategoryProps) {
   const currentPage = parseInt(page);
   const productCardsPerPage = 9;
 
-  const totalItemCount = await prisma.product.count();
+  const totalItemCount = await prisma.product.count({
+    where: {
+      OR: [
+        { name: { contains: query, mode: "insensitive" } },
+        { category: { contains: query, mode: "insensitive" } },
+      ],
+    },
+  });
 
   const totalPages = Math.ceil(totalItemCount / productCardsPerPage);
 
   const products = await prisma.product.findMany({
+    where: {
+      OR: [
+        { name: { contains: query, mode: "insensitive" } },
+        { category: { contains: query, mode: "insensitive" } },
+      ],
+    },
     orderBy: { id: "desc" },
     skip: (currentPage - 1) * productCardsPerPage,
     take: productCardsPerPage,
@@ -34,7 +47,11 @@ export default async function Category({
       </section>
       <div className="flex w-full justify-center py-5 sm:py-10">
         {totalPages > 1 && (
-          <Pagination currentPage={currentPage} totalPages={totalPages} />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            query={query}
+          />
         )}
       </div>
     </>

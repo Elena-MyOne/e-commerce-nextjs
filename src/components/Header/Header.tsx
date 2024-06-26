@@ -12,7 +12,9 @@ async function searchProducts(formData: FormData) {
   "use server";
   const searchQuery = formData.get("searchQuery")?.toString();
   if (searchQuery) {
-    redirect("/search?query=" + searchQuery);
+    redirect("/category?query=" + searchQuery);
+  } else {
+    redirect("/category");
   }
 }
 
@@ -31,7 +33,7 @@ export default async function Header() {
             Shop.co
           </Link>
         </div>
-        <div className="flex-none gap-2 sm:gap-6">
+        <div className="flex-none gap-3 px-1 sm:gap-6 sm:px-0">
           {/* <nav>
             <ul className="flex gap-6">
               <li>
