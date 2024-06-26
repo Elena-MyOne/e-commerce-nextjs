@@ -1,10 +1,15 @@
 import Pagination from "@/components/Pagination/Pagination";
 import ProductCard from "@/components/productCard/ProductCard";
 import { prisma } from "@/lib/db/prisma";
+import { Metadata } from "next";
 
 interface CategoryProps {
   searchParams: { page: string; query: string };
 }
+
+export const metadata: Metadata = {
+  title: "Shop",
+};
 
 export default async function Category({
   searchParams: { page = "1", query = "" },

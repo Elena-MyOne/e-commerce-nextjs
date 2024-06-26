@@ -26,7 +26,7 @@ export default async function Header() {
   return (
     <>
       <header className="navbar m-auto flex-col gap-4 border-b border-gray-200 p-0 py-2 md:container lg:flex-row">
-        <div className="flex flex-1 items-end gap-20 self-start lg:items-center lg:justify-between">
+        <div className="flex flex-1 items-end gap-20 self-start lg:items-center lg:justify-between lg:self-center">
           <button className="block px-1 text-2xl lg:hidden">
             <RxHamburgerMenu />
           </button>
