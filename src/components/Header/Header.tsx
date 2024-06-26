@@ -5,12 +5,16 @@ import ShoppingCartButton from "./ShoppingCartButton/ShoppingCartButton";
 import UserMenuButton from "./UserMenuButton/UserMenuButton";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import SearchProductsSubmitButton from "./searchProductsSubmitButton/searchProductsSubmitButton";
+import { RiSearchLine } from "react-icons/ri";
 
 async function searchProducts(formData: FormData) {
   "use server";
   const searchQuery = formData.get("searchQuery")?.toString();
   if (searchQuery) {
-    redirect("/search?query=" + searchQuery);
+    redirect("/category?query=" + searchQuery);
+  } else {
+    redirect("/category");
   }
 }
 
@@ -29,7 +33,7 @@ export default async function Header() {
             Shop.co
           </Link>
         </div>
-        <div className="flex-none gap-2 sm:gap-6">
+        <div className="flex-none gap-3 px-1 sm:gap-6 sm:px-0">
           {/* <nav>
             <ul className="flex gap-6">
               <li>
@@ -43,20 +47,21 @@ export default async function Header() {
               </li>
             </ul>
           </nav> */}
-          <form action={searchProducts}>
+          <form action={searchProducts} className="relative">
             <div className="form-control">
               <input
                 name="searchQuery"
                 placeholder="Search for products..."
-                className="input input-bordered w-full min-w-[100px] rounded-full"
+                className="input input-bordered w-full min-w-[100px] rounded-full pr-10"
               />
             </div>
+            <SearchProductsSubmitButton>
+              <RiSearchLine />
+            </SearchProductsSubmitButton>
           </form>
           <ShoppingCartButton cart={cart} />
           <UserMenuButton session={session} />
         </div>
-        {/*
-        <div className="">avatar icon</div> */}
       </header>
     </>
   );

@@ -64,6 +64,13 @@ const addProduct = async (formData: FormData) => {
 };
 
 const inputStyles = "input-bordered input  mb-3 w-full";
+export const categoryOptions = [
+  "T-shirt",
+  "Shorts",
+  "Jeans",
+  "Shirts",
+  "Hoodie",
+];
 
 export default async function AddProductPage() {
   const session = await getServerSession(authOptions);
@@ -108,11 +115,9 @@ export default async function AddProductPage() {
             <option disabled value="DEFAULT">
               Category
             </option>
-            <option>T-shirt</option>
-            <option>Shorts</option>
-            <option>Jeans</option>
-            <option>Shirts</option>
-            <option>Hoodie</option>
+            {categoryOptions.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
           </select>
           <select
             className="select select-bordered mb-3 w-full"
