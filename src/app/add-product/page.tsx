@@ -64,16 +64,11 @@ const addProduct = async (formData: FormData) => {
 };
 
 const inputStyles = "input-bordered input  mb-3 w-full";
-export const categoryOptions = [
-  "T-shirt",
-  "Shorts",
-  "Jeans",
-  "Shirts",
-  "Hoodie",
-];
 
 export default async function AddProductPage() {
   const session = await getServerSession(authOptions);
+
+  const categoryOptions = ["T-shirt", "Shorts", "Jeans", "Shirts", "Hoodie"];
 
   if (!session) {
     redirect("/api/auth/signin?callbackUrl=/add-product");
