@@ -14,7 +14,7 @@ export default function SearchProductsSubmitButton({
 
   return (
     <button
-      className="absolute right-2 top-3 cursor-pointer text-2xl text-gray-500 duration-300 hover:text-secondary"
+      className="absolute left-2 top-3 cursor-pointer text-2xl text-gray-500 duration-300 hover:text-secondary"
       type="submit"
       disabled={pending}
     >
