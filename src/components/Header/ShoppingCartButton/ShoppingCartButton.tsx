@@ -46,7 +46,8 @@ export default function ShoppingCartButton({ cart }: ShoppingCartButtonProps) {
               Subtotal: {formatPrice(cart?.subtotal || 0)}
             </span>
             <span className="text-center text-error">
-              Discount: -{formatPrice(cart?.discount || 0)}
+              Discount: {cart?.discount && "-"}
+              {formatPrice(cart?.discount || 0)}
             </span>
           </div>
           <div className="flex flex-col gap-2 pt-4">

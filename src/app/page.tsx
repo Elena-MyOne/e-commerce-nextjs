@@ -1,3 +1,4 @@
+import DressStyle from "@/components/DressStyle/page";
 import HeroComponent from "@/components/HeroComponent/HeroComponent";
 import ProductsRow from "@/components/ProductsRow/ProductsRow";
 import ViewAllButton from "@/components/UI/buttons/ViewAllButton";
@@ -27,6 +28,7 @@ export default async function Home() {
           <ViewAllButton />
         </div>
       </div>
+      <DressStyle />
     </>
   );
 }
