@@ -1,9 +1,17 @@
+"use client";
+
 import imageMan from "../../assets/images/pages/home/dress-style/1.png";
 import imageUnisex from "../../assets/images/pages/home/dress-style/2.png";
 import imageKids from "../../assets/images/pages/home/dress-style/3.png";
 import imageWoman from "../../assets/images/pages/home/dress-style/4.png";
+import { useRouter } from "next/navigation";
 
 export default function DressStyle() {
+  const router = useRouter();
+
+  const handleDressStyleCardClick = (audience: string) => {
+    router.push(`/category?audience=${audience}`);
+  };
   return (
     <section className="mb-5 rounded-xl bg-accent p-4 lg:mb-10 lg:p-10">
       <h2 className="my-4 text-center font-custom text-2xl font-bold lg:my-8 lg:text-3xl">
@@ -18,6 +26,7 @@ export default function DressStyle() {
             backgroundColor: "#fff",
             backgroundPosition: "right top",
           }}
+          onClick={() => handleDressStyleCardClick("men")}
         >
           Men
         </div>
@@ -29,6 +38,7 @@ export default function DressStyle() {
             backgroundColor: "#fff",
             backgroundPosition: "right center",
           }}
+          onClick={() => handleDressStyleCardClick("unisex")}
         >
           Unisex
         </div>
@@ -40,6 +50,7 @@ export default function DressStyle() {
             backgroundColor: "#fff",
             backgroundPosition: "right center",
           }}
+          onClick={() => handleDressStyleCardClick("kids")}
         >
           Kids
         </div>
@@ -51,6 +62,7 @@ export default function DressStyle() {
             backgroundColor: "#fff",
             backgroundPosition: "right center",
           }}
+          onClick={() => handleDressStyleCardClick("women")}
         >
           Women
         </div>

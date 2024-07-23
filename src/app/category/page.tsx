@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db/prisma";
 import { Metadata } from "next";
 
 interface CategoryProps {
-  searchParams: { page: string; query: string };
+  searchParams: { page: string; query?: string; audience?: string };
 }
 
 export const metadata: Metadata = {
@@ -12,29 +12,38 @@ export const metadata: Metadata = {
 };
 
 export default async function Category({
-  searchParams: { page = "1", query = "" },
+  searchParams: { page = "1", query = "", audience = "" },
 }: CategoryProps) {
   const currentPage = parseInt(page);
   const productCardsPerPage = 9;
+  const targetAudiences = audience === "kids" ? ["boys", "girls"] : [audience];
 
-  const totalItemCount = await prisma.product.count({
-    where: {
-      OR: [
-        { name: { contains: query, mode: "insensitive" } },
-        { category: { contains: query, mode: "insensitive" } },
-      ],
-    },
+  const createFilter = (query: string, targetAudiences: string[]) => ({
+    AND: [
+      {
+        OR: [
+          { name: { contains: query, mode: "insensitive" as const } },
+          { category: { contains: query, mode: "insensitive" as const } },
+        ],
+      },
+      {
+        OR:
+          targetAudiences.length > 0
+            ? targetAudiences.map((aud) => ({
+                targetAudience: { equals: aud, mode: "insensitive" as const },
+              }))
+            : [{ targetAudience: { not: "" } }],
+      },
+    ],
   });
+
+  const filter = createFilter(query, targetAudiences);
+  const totalItemCount = await prisma.product.count({ where: filter });
 
   const totalPages = Math.ceil(totalItemCount / productCardsPerPage);
 
   const products = await prisma.product.findMany({
-    where: {
-      OR: [
-        { name: { contains: query, mode: "insensitive" } },
-        { category: { contains: query, mode: "insensitive" } },
-      ],
-    },
+    where: filter,
     orderBy: { id: "desc" },
     skip: (currentPage - 1) * productCardsPerPage,
     take: productCardsPerPage,
@@ -44,7 +53,8 @@ export default async function Category({
     <>
       <section className="my-5 w-full sm:my-10">
         <h1 className="mb-4 font-custom text-2xl font-bold">
-          {query ? "Searching results" : "New Arrivals"}
+          {query && "Searching results"}{" "}
+          {audience ? `${audience} clothes` : "New Arrivals"}
         </h1>
         <div className="flex flex-wrap gap-4">
           {products.map((product) => (

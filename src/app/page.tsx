@@ -1,4 +1,4 @@
-import DressStyle from "@/components/DressStyle/page";
+import DressStyle from "@/components/DressStyle/DressStyle";
 import HeroComponent from "@/components/HeroComponent/HeroComponent";
 import ProductsRow from "@/components/ProductsRow/ProductsRow";
 import ViewAllButton from "@/components/UI/buttons/ViewAllButton";
