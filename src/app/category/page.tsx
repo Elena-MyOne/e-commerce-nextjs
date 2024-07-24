@@ -18,24 +18,27 @@ export default async function Category({
   const productCardsPerPage = 9;
   const targetAudiences = audience === "kids" ? ["boys", "girls"] : [audience];
 
-  const createFilter = (query: string, targetAudiences: string[]) => ({
-    AND: [
-      {
+  const createFilter = (query: string, targetAudiences: string[]) => {
+    const filterConditions = [];
+
+    if (query) {
+      filterConditions.push({
         OR: [
           { name: { contains: query, mode: "insensitive" as const } },
           { category: { contains: query, mode: "insensitive" as const } },
         ],
-      },
-      {
-        OR:
-          targetAudiences.length > 0
-            ? targetAudiences.map((aud) => ({
-                targetAudience: { equals: aud, mode: "insensitive" as const },
-              }))
-            : [{ targetAudience: { not: "" } }],
-      },
-    ],
-  });
+      });
+    }
+
+    if (targetAudiences.length > 0 && targetAudiences[0]) {
+      filterConditions.push({
+        OR: targetAudiences.map((aud) => ({
+          targetAudience: { equals: aud, mode: "insensitive" as const },
+        })),
+      });
+    }
+    return filterConditions.length > 0 ? { AND: filterConditions } : {};
+  };
 
   const filter = createFilter(query, targetAudiences);
   const totalItemCount = await prisma.product.count({ where: filter });
@@ -68,6 +71,7 @@ export default async function Category({
             currentPage={currentPage}
             totalPages={totalPages}
             query={query}
+            audience={audience}
           />
         )}
       </div>
