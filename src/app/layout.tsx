@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import SessionProvider from "./SessionProvider";
+import SubscribeForm from "@/components/SubscribeForm/SubscribeForm";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +28,10 @@ export default function RootLayout({
         <SessionProvider>
           <Header />
           <main className="m-auto p-0 md:container">{children}</main>
-          <Footer />
+          <>
+            <SubscribeForm />
+            <Footer />
+          </>
         </SessionProvider>
       </body>
     </html>

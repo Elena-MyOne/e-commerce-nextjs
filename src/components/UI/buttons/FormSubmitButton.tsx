@@ -18,7 +18,7 @@ const FormSubmitButton: React.FC<FormSubmitButtonProps> = ({
   return (
     <button
       {...props}
-      className={`btn btn-primary rounded-full hover:btn-secondary ${className}`}
+      className={`btn rounded-full ${className}`}
       type="submit"
       disabled={pending}
     >

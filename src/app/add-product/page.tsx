@@ -155,7 +155,11 @@ export default async function AddProductPage() {
             max={80}
           />
           <div className="flex w-full justify-center">
-            <FormSubmitButton>Add Product</FormSubmitButton>
+            <FormSubmitButton
+              className={`${"btn-primary hover:btn-secondary"}`}
+            >
+              Add Product
+            </FormSubmitButton>
           </div>
         </form>
       </div>

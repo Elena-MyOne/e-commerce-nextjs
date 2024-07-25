@@ -45,7 +45,7 @@ export default function OrderSummary({
               className="input input-bordered w-full min-w-[100px] rounded-full"
             />
           </div>
-          <FormSubmitButton className="max-w-[250px] px-5">
+          <FormSubmitButton className="btn-primary max-w-[250px] px-5 hover:btn-secondary">
             Apply
           </FormSubmitButton>
         </form>
