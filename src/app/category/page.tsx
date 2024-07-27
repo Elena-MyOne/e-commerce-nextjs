@@ -1,3 +1,4 @@
+import Filters from "@/components/Filters/Filters";
 import Pagination from "@/components/Pagination/Pagination";
 import ProductCard from "@/components/productCard/ProductCard";
 import { prisma } from "@/lib/db/prisma";
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Category({
-  searchParams: { page = "1", query = "", audience = "" },
+  searchParams: { page = "1", query = "new", audience = "" },
 }: CategoryProps) {
   const currentPage = parseInt(page);
   const productCardsPerPage = 9;
@@ -21,7 +22,7 @@ export default async function Category({
   const createFilter = (query: string, targetAudiences: string[]) => {
     const filterConditions = [];
 
-    if (query) {
+    if (query && query !== "new" && query !== "sale") {
       filterConditions.push({
         OR: [
           { name: { contains: query, mode: "insensitive" as const } },
@@ -40,14 +41,25 @@ export default async function Category({
     return filterConditions.length > 0 ? { AND: filterConditions } : {};
   };
 
+  const createOrderBy = (query: string) => {
+    if (query === "new") {
+      return { id: "desc" as const };
+    } else if (query === "sale") {
+      return { sale: "desc" as const };
+    }
+    return undefined;
+  };
+
   const filter = createFilter(query, targetAudiences);
+  const orderBy = createOrderBy(query);
+
   const totalItemCount = await prisma.product.count({ where: filter });
 
   const totalPages = Math.ceil(totalItemCount / productCardsPerPage);
 
   const products = await prisma.product.findMany({
     where: filter,
-    orderBy: { id: "desc" },
+    orderBy: orderBy ? [orderBy] : undefined,
     skip: (currentPage - 1) * productCardsPerPage,
     take: productCardsPerPage,
   });
@@ -56,13 +68,18 @@ export default async function Category({
     <>
       <section className="my-5 w-full sm:my-10">
         <h1 className="mb-4 font-custom text-2xl font-bold">
-          {query && "Searching results"}{" "}
-          {audience ? `${audience} clothes` : "New Arrivals"}
+          {query === "new" && "New Arrivals"}
+          {query === "sale" && "Top Discounts"}
+          {query !== "sale" && query !== "new" && `${query} clothes`}
+          {audience && `${audience} clothes`}
         </h1>
-        <div className="flex flex-wrap gap-4">
-          {products.map((product) => (
-            <ProductCard product={product} key={product.id} />
-          ))}
+        <div className="flex gap-4">
+          <Filters />
+          <div className="flex flex-wrap gap-4">
+            {products.map((product) => (
+              <ProductCard product={product} key={product.id} />
+            ))}
+          </div>
         </div>
       </section>
       <div className="flex w-full justify-center py-5 sm:py-10">

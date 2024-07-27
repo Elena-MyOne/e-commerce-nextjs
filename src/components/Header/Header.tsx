@@ -42,10 +42,10 @@ export default async function Header() {
                 <Link href="/category">Shop</Link>
               </li>
               <li>
-                <Link href="/category">On Sale</Link>
+                <Link href="/category?query=sale">On Sale</Link>
               </li>
               <li>
-                <Link href="/category">New Arrivals</Link>
+                <Link href="/category?query=new">New Arrivals</Link>
               </li>
             </ul>
           </nav>

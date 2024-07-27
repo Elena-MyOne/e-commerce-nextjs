@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import authOptions from "../api/auth/[...nextauth]/options";
+import { categoryOptions } from "@/lib/constants/categoryOptions";
 // import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export const metadata: Metadata = {
@@ -68,8 +69,6 @@ const inputStyles = "input-bordered input  mb-3 w-full";
 
 export default async function AddProductPage() {
   const session = await getServerSession(authOptions);
-
-  const categoryOptions = ["T-shirt", "Shorts", "Jeans", "Shirts", "Hoodie"];
 
   if (!session) {
     redirect("/api/auth/signin?callbackUrl=/add-product");

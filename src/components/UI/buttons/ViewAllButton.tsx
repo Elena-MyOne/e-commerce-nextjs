@@ -1,9 +1,18 @@
-export default function ViewAllButton() {
+import Link from "next/link";
+
+interface ViewAllButtonProps {
+  query: string;
+}
+
+export default function ViewAllButton({ query }: ViewAllButtonProps) {
   return (
     <div className="flex items-center justify-center pb-5 lg:pb-10">
-      <button className="btn btn-outline rounded-full px-14">
+      <Link
+        href={`/category?query=${query}`}
+        className="btn btn-outline rounded-full px-14"
+      >
         <span className="">View All</span>
-      </button>
+      </Link>
     </div>
   );
 }

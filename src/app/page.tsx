@@ -21,11 +21,11 @@ export default async function Home() {
       <div className="divide-y py-8 lg:py-4">
         <div>
           <ProductsRow title="New Arrivals" products={newProducts} />
-          <ViewAllButton />
+          <ViewAllButton query="new" />
         </div>
         <div>
           <ProductsRow title="Top Discounts" products={salesProducts} />
-          <ViewAllButton />
+          <ViewAllButton query="sale" />
         </div>
       </div>
       <DressStyle />
